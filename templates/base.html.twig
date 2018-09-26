@@ -10,10 +10,12 @@
     <body class="container">
         <div class="row py-3">
             <div class="d-flex col-12">
-                <h1 class="font-weight-bold">Bol.com</h1>
+                <h1 class="font-weight-bold">
+                    <a href="{{ path('default') }}">Bol.com</a>
+                </h1>
                 <div class="align-self-center ml-auto">
                     <a class="mr-3" href="#"><i class="fas fa-search"></i> Zoeken </a>
-                    <a href="#"><i class="fas fa-user"></i> Inloggen</a>
+                    <a href="{{ path('fos_user_security_login') }}"><i class="fas fa-user"></i> Inloggen</a>
                 </div>
             </div>
         </div>
