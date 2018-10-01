@@ -4,3 +4,9 @@
 
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
+
+.page-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
