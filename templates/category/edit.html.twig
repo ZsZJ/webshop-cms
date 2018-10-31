@@ -1,0 +1,22 @@
+{% extends 'admin.html.twig' %}
+
+{% block pagetitle %}Edit category{% endblock %}
+
+{% block backlink %}
+    <a href="{{ path('category_index') }}">
+        <i class="fas fa-chevron-circle-left"></i>
+        Back to index
+    </a>
+{% endblock %}
+
+{% block body %}
+
+    {{ include('category/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <hr />
+
+    <p class="text-danger">Delete the category, notice that this change cannot be undone</p>
+
+    {{ include('category/_delete_form.html.twig') }}
+
+{% endblock %}

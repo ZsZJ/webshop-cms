@@ -1,0 +1,50 @@
+{% extends 'admin.html.twig' %}
+
+{% block pagetitle %}Product{% endblock %}
+
+{% block backlink %}
+    <a href="{{ path('product_index') }}">
+        <i class="fas fa-chevron-circle-left"></i>
+        Back to index
+    </a>
+{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ product.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ product.name }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>&euro; {{ product.price }}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>
+                    <a href="{{ path('category_show', {id : product.category.id}) }}">
+                        {{ product.category.name }}
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('product_edit', {'id': product.id}) }}">
+        <i class="fa fa-edit"></i>
+        Edit
+    </a>
+
+    <hr />
+
+    <p class="text-danger">Delete the product, notice that this change cannot be undone</p>
+
+    {{ include('product/_delete_form.html.twig') }}
+
+{% endblock %}

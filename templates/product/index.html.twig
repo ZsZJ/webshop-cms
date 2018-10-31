@@ -1,0 +1,54 @@
+{% extends 'admin.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">Home</li>
+    <li class="breadcrumb-item">
+        <a href="{{ path('dashboard') }}">Admin</a>
+    </li>
+    <li class="breadcrumb-item active">Products</li>
+{% endblock %}
+
+{% block pagetitle %}Products{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>&euro; {{ product.price }}</td>
+                <td>
+                    <a href="{{ path('category_show', {id : product.category.id}) }}">
+                        {{ product.category.name }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('product_show', {'id': product.id}) }}">
+                        <i class="fa fa-search"></i> Details
+                    </a>
+                    <a class="ml-3" href="{{ path('product_edit', {'id': product.id}) }}">
+                        <i class="fa fa-edit"></i> Edit
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a  class="btn btn-primary" href="{{ path('product_new') }}">Create new</a>
+{% endblock %}

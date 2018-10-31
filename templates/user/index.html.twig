@@ -1,0 +1,41 @@
+{% extends 'admin.html.twig' %}
+
+{% block pagetitle %}Users{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.enabled }}</td>
+                <td>{{ user.roles[0] }}</td>
+                {#<td>#}
+                    {#<a href="{{ path('product_show', {'id': product.id}) }}">#}
+                        {#<i class="fa fa-search"></i> Details#}
+                    {#</a>#}
+                    {#<a class="ml-3" href="{{ path('product_edit', {'id': product.id}) }}">#}
+                        {#<i class="fa fa-edit"></i> Edit#}
+                    {#</a>#}
+                {#</td>#}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

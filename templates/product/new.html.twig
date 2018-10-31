@@ -1,0 +1,20 @@
+{% extends 'admin.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">Home</li>
+    <li class="breadcrumb-item">
+        <a href="{{ path('dashboard') }}">Admin</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{{ path('product_index') }}">Products</a>
+    </li>
+    <li class="breadcrumb-item active">Create new</li>
+{% endblock %}
+
+{% block pagetitle %}New Product{% endblock %}
+
+{% block body %}
+
+    {{ include('product/_form.html.twig') }}
+
+{% endblock %}
