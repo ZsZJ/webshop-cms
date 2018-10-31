@@ -1,17 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
-{% block title %}Category index{% endblock %}
+{% block pagetitle %}Categories{% endblock %}
 
 {% block body %}
-    <h1>Category index</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Parent_id</th>
-                <th>actions</th>
+                <th>Parent Category</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -19,10 +18,14 @@
             <tr>
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
-                <td>{{ category.parentId }}</td>
+                <td>{{ (category.parent) ? category.parent.name : '-' }}</td>
                 <td>
-                    <a href="{{ path('category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
+                    <a href="{{ path('category_show', {'id': category.id}) }}">
+                        <i class="fa fa-search"></i> Details
+                    </a>
+                    <a class="ml-3" href="{{ path('category_edit', {'id': category.id}) }}">
+                        <i class="fa fa-edit"></i> Edit
+                    </a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +36,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('category_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('category_new') }}">Create new</a>
 {% endblock %}
