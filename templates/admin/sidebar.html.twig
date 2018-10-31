@@ -1,0 +1,96 @@
+<div class="sidebar">
+    <nav class="sidebar-nav">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('dashboard') }}">
+                    <i class="nav-icon icon-speedometer"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-title">Orders</li>
+            <li class="nav-item">
+                <a class="nav-link" href="colors.html">
+                    <i class="nav-icon icon-drop"></i> New Orders</a>
+            </li>
+            <li class="nav-title">Components</li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-puzzle"></i>
+                    Products
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('product_new') }}">
+                            <i class="nav-icon icon-plus"></i>
+                            Create new
+                        </a>
+                        <a class="nav-link" href="{{ path('product_index') }}">
+                            <i class="nav-icon icon-list"></i>
+                            All Products
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon cui-align-left"></i>
+                    Categories
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('category_new') }}">
+                            <i class="nav-icon icon-plus"></i>
+                            Create new
+                        </a>
+                        <a class="nav-link" href="{{ path('category_index') }}">
+                            <i class="nav-icon icon-list"></i>
+                            All Categories
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-user"></i>
+                    Users
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('category_new') }}">
+                            <i class="nav-icon icon-plus"></i>
+                            Create new
+                        </a>
+                        <a class="nav-link" href="{{ path('user_index') }}">
+                            <i class="nav-icon icon-list"></i>
+                            All Users
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="divider"></li>
+            <li class="nav-title">Settings</li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-settings"></i> Webshop settings</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html" target="_top">
+                            <i class="nav-icon icon-star"></i> Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html" target="_top">
+                            <i class="nav-icon icon-star"></i> Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="404.html" target="_top">
+                            <i class="nav-icon icon-star"></i> Error 404</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="500.html" target="_top">
+                            <i class="nav-icon icon-star"></i> Error 500</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+</div>
