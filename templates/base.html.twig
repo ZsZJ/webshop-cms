@@ -11,7 +11,7 @@
         <div class="row py-3">
             <div class="d-flex col-12">
                 <h1 class="font-weight-bold">
-                    <a href="{{ path('default') }}">Mijn winkel</a>
+                    <a href="{{ path('app_home') }}">Mijn winkel</a>
                 </h1>
                 <div class="align-self-center ml-auto">
                     <a class="mr-3" href="#"><i class="fas fa-search"></i> Search </a>
@@ -20,7 +20,7 @@
                             {{ app.user.email }}
                         </a>
                     {% else %}
-                        <a href="{{ path('fos_user_security_login') }}">
+                        <a href="{{ path('app_login') }}">
                             <i class="fas fa-user"></i> Sign in
                         </a>
                     {% endif %}
@@ -51,14 +51,19 @@
                             </li>
                         </ul>
                         <ul class="navbar-nav ml-auto">
-                             <li class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link" href="#">Customer Service <span class="sr-only"></span></a>
                             </li>
+                            {% if is_granted('ROLE_USER') %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('profile') }}">Profile <span class="sr-only"></span></a>
+                                </li>
+                            {% endif %}
                             {% if is_granted('ROLE_ADMIN') %}
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('dashboard') }}">Admin Panel <span class="sr-only"></span></a>
                                 </li>
-                            {%endif%}
+                            {% endif %}
                         </ul>
                     </div>
                 </nav>

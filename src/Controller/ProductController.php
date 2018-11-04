@@ -24,6 +24,27 @@ class ProductController extends AbstractController
     }
 
     /**
+     * @Route("/search", name="product_search", methods="GET|POST")
+     */
+    public function search(Request $request, ProductRepository $productRepository): Response
+    {
+
+        $search_products = $productRepository->createQueryBuilder('p')
+            ->join('p.category', 'c')
+            ->where('p.id LIKE :id')
+            ->orWhere('p.name LIKE :name')
+            ->orWhere('c.name LIKE :category')
+            ->setParameter('id', $request->get('value'))
+            ->setParameter('name', '%'.$request->get('value').'%')
+            ->setParameter('category', '%'.$request->get('value').'%')
+        ->getQuery()
+        ->getResult();
+
+        return $this->render('product/index.html.twig', ['products' => $search_products]);
+    }
+
+
+    /**
      * @Route("/new", name="product_new", methods="GET|POST")
      */
     public function new(Request $request): Response

@@ -1,6 +1,27 @@
 {% extends 'admin.html.twig' %}
 
-{% block pagetitle %}Users{% endblock %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item">Home</li>
+    <li class="breadcrumb-item">
+        <a href="{{ path('dashboard') }}">Admin</a>
+    </li>
+    <li class="breadcrumb-item active">Users</li>
+{% endblock %}
+
+{% block pagetitle %}Products{% endblock %}
+
+{% block searchbar %}
+    {#<form class="ml-auto w-25" method="get" action="{{ path('product_search') }}">#}
+        {#<div class="input-group">#}
+            {#<input type="text" class="form-control form-control-sm" placeholder="Search" name="value">#}
+            {#<span class="input-group-btn ml-2">#}
+                {#<button type="submit" class="btn btn-sm btn-primary">#}
+                    {#<i class="fa fa-search"></i>#}
+                {#</button>#}
+            {#</span>#}
+        {#</div>#}
+    {#</form>#}
+{% endblock %}
 
 {% block body %}
 
@@ -9,8 +30,9 @@
         <tr>
             <th>Id</th>
             <th>Email</th>
-            <th>Status</th>
-            <th>Role</th>
+            <th>Roles</th>
+            <th>Active</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -18,16 +40,25 @@
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.enabled }}</td>
-                <td>{{ user.roles[0] }}</td>
-                {#<td>#}
-                    {#<a href="{{ path('product_show', {'id': product.id}) }}">#}
-                        {#<i class="fa fa-search"></i> Details#}
-                    {#</a>#}
-                    {#<a class="ml-3" href="{{ path('product_edit', {'id': product.id}) }}">#}
-                        {#<i class="fa fa-edit"></i> Edit#}
-                    {#</a>#}
-                {#</td>#}
+                <td>
+                    {% for roles in user.roles  %}
+                        {{ roles }}
+                    {% endfor %}
+                </td>
+                <td>
+                    <label class="switch switch-label switch-primary">
+                        <input data-id="{{ user.id }}" data-token="{{ csrf_token(user.id) }}"  class="switch-input" type="checkbox" {{ (user.active) ? 'checked' : '' }}>
+                        <span class="switch-slider" data-checked="✓" data-unchecked="✕"></span>
+                    </label>
+                </td>
+                <td>
+                    <a href="{{ path('user_show', {'id': user.id}) }}">
+                        <i class="fa fa-search"></i> Details
+                    </a>
+                    <a class="ml-3" href="{{ path('user_edit', {'id': user.id}) }}">
+                        <i class="fa fa-edit"></i> Edit
+                    </a>
+                </td>
             </tr>
         {% else %}
             <tr>
@@ -37,5 +68,37 @@
         </tbody>
     </table>
 
+    <a  class="btn btn-primary" href="{{ path('product_new') }}">Create new</a>
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+
+    // USER ID
+    let elements = document.getElementsByClassName('switch');
+
+    for (var i = 0; i < elements.length; i++) {
+
+      elements[i].onchange = function (e) {
+
+        var target = e.target || e.srcElement;
+        var user_id = target.getAttribute('data-id');
+        var token = target.getAttribute('data-token');
+
+        // AXIOS CALL
+        axios.post('{{ path('user_active') }}', {
+          user_id : user_id,
+          active : target.checked,
+          _token : token
+        })
+        .then(function(response) {
+            console.log(response);
+        })
+
+      };
+    }
+
+</script>
 
 {% endblock %}
