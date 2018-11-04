@@ -8,7 +8,7 @@
     <li class="breadcrumb-item active">Users</li>
 {% endblock %}
 
-{% block pagetitle %}Products{% endblock %}
+{% block pagetitle %}Users{% endblock %}
 
 {% block searchbar %}
     {#<form class="ml-auto w-25" method="get" action="{{ path('product_search') }}">#}
@@ -68,7 +68,7 @@
         </tbody>
     </table>
 
-    <a  class="btn btn-primary" href="{{ path('product_new') }}">Create new</a>
+    <a  class="btn btn-primary" href="{{ path('user_new') }}">Create new</a>
 {% endblock %}
 
 {% block javascripts %}

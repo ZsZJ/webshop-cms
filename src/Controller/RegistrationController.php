@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Profile;
 use App\Form\UserType;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,16 +29,19 @@ class RegistrationController extends AbstractController
             // 3) Encode the password (you could also do this via Doctrine Listener)
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
+            $user->setActive(1);
+            $user->setRoles(array('ROLE_USER'));
 
-            // 4) Save the User
+            $profile = new Profile();
+            $profile->setUser($user);
+
+            // 4) Save the User & Profile
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
+            $entityManager->persist($profile);
             $entityManager->flush();
 
-            // ... do any other work - like sending them an email, etc
-            // set a "flash" success message for the user
-
-            // return $this->redirectToRoute('replace_with_some_route');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render(

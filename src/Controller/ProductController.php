@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,15 +19,15 @@ class ProductController extends AbstractController
     /**
      * @Route("/", name="product_index", methods="GET")
      */
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
-        return $this->render('product/index.html.twig', ['products' => $productRepository->findAll()]);
+        return $this->render('product/index.html.twig', ['products' => $productRepository->findAll(), 'categories' => $categoryRepository->findAll()]);
     }
 
     /**
      * @Route("/search", name="product_search", methods="GET|POST")
      */
-    public function search(Request $request, ProductRepository $productRepository): Response
+    public function search(Request $request, ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
         $search_products = $productRepository->createQueryBuilder('p')
             ->join('p.category', 'c')
@@ -39,7 +40,22 @@ class ProductController extends AbstractController
         ->getQuery()
         ->getResult();
 
-        return $this->render('product/index.html.twig', ['products' => $search_products]);
+        return $this->render('product/index.html.twig', ['products' => $search_products, 'categories' => $categoryRepository->findAll()]);
+    }
+
+    /**
+     * @Route("/filter", name="product_filter", methods="GET|POST")
+     */
+    public function filter(Request $request, ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
+    {
+        $filter_products = $productRepository->createQueryBuilder('p')
+            ->join('p.category', 'c')
+            ->where('p.category = :category')
+            ->setParameter('category', $request->get('filter'))
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('product/index.html.twig', ['products' => $filter_products, 'categories' => $categoryRepository->findAll()]);
     }
 
 

@@ -10,8 +10,24 @@
 
 {% block pagetitle %}Products{% endblock %}
 
+{% block filter %}
+    <form class="ml-auto" action="{{ path('product_filter') }}" method="post">
+        <div class="input-group">
+            <select name="filter" class="form-control form-control-sm">
+                <option value="0">---</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-sm btn-primary ml-1">
+                <span class="fa fa-filter"></span>
+            </button>
+        </div>
+    </form>
+{% endblock %}
+
 {% block search %}
-    <form class="ml-auto" action="{{ path('product_search') }}" method="get">
+    <form class="ml-3" action="{{ path('product_search') }}" method="get">
         <div class="input-group">
             <input type="text" class="form-control form-control-sm" name="value"/>
             <button type="submit" class="btn btn-sm btn-primary ml-1">

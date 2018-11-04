@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Profile;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -29,18 +30,29 @@ class UserController extends AbstractController
     /**
      * @Route("/new", name="user_new", methods="GET|POST")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
 
-            return $this->redirectToRoute('product_index');
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+            $user->setActive(1);
+            $user->setRoles(array('ROLE_USER'));
+
+            $profile = new Profile();
+            $profile->setUser($user);
+
+            // 4) Save the User & Profile
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->persist($profile);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('user_index');
         }
 
         return $this->render('user/new.html.twig', [
@@ -96,7 +108,7 @@ class UserController extends AbstractController
             $em->flush();
         }
 
-        return $this->redirectToRoute('product_index');
+        return $this->redirectToRoute('user_index');
     }
 
     /**
