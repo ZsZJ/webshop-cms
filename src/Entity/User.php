@@ -51,6 +51,11 @@ class User implements UserInterface
      */
     private $active;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $count_logged_in;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -164,6 +169,18 @@ class User implements UserInterface
     public function setActive(bool $active): self
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    public function getCountLoggedIn(): ?int
+    {
+        return $this->count_logged_in;
+    }
+
+    public function setCountLoggedIn(int $count_logged_in): self
+    {
+        $this->count_logged_in = $count_logged_in;
 
         return $this;
     }
