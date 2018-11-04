@@ -28,7 +28,6 @@ class ProductController extends AbstractController
      */
     public function search(Request $request, ProductRepository $productRepository): Response
     {
-
         $search_products = $productRepository->createQueryBuilder('p')
             ->join('p.category', 'c')
             ->where('p.id LIKE :id')

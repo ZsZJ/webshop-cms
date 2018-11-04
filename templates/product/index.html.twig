@@ -10,6 +10,17 @@
 
 {% block pagetitle %}Products{% endblock %}
 
+{% block search %}
+    <form class="ml-auto" action="{{ path('product_search') }}" method="get">
+        <div class="input-group">
+            <input type="text" class="form-control form-control-sm" name="value"/>
+            <button type="submit" class="btn btn-sm btn-primary ml-1">
+                <span class="fa fa-search"></span>
+            </button>
+        </div>
+    </form>
+{% endblock %}
+
 {% block body %}
 
     <table class="table">
